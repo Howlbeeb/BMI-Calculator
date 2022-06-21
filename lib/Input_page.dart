@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 const bottomAppbarheight = 80.0;
 const cardcolor= Color(0xFF1D1E33);
@@ -21,21 +22,25 @@ class _InputPageState extends State<InputPage> {
           Expanded(
             child: Row(
               children: <Widget>[
-                Expanded(child: ReusableCard(cardcolor)),
+                Expanded(child: ReusableCard(colour:cardcolor,
+                  cardchild: Column(
+                    children: <Widget>[
+                      Icon(
+                          FontAwesomeIcons.mars,size: 80.0,),],) ,),),
                 Expanded(
-                  child: ReusableCard(cardcolor),
+                  child: ReusableCard(colour: cardcolor,cardchild: ,),
                 )
               ],
             ),
           ),
           Expanded(
-            child: ReusableCard(cardcolor),
+            child: ReusableCard(colour:cardcolor,cardchild: ,),
           ),
           Expanded(
             child: Row(
               children: <Widget>[
-                Expanded(child: ReusableCard(cardcolor, )),
-                Expanded(child: ReusableCard(cardcolor))
+                Expanded(child: ReusableCard(colour:cardcolor,cardchild: , )),
+                Expanded(child: ReusableCard(colour:cardcolor,cardchild: ,))
               ],
             ),
           ),
@@ -50,7 +55,7 @@ class _InputPageState extends State<InputPage> {
 }
 
 class ReusableCard extends StatelessWidget {
-  ReusableCard(@required this.colour, this.cardchild);
+  ReusableCard({required this.colour,this.cardchild});
   final Color colour;
   final Widget cardchild;
 
