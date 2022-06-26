@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'reusable_card.dart';
-import 'icon_content.dart';
-import 'Constants.dart';
+import '../components/reusable_card.dart';
+import '../components/icon_content.dart';
+import '../Constants.dart';
+import 'resultpage.dart';
+import '../components/BottomButton.dart';
+import '../components/RoundIconbutton.dart';
+import 'package:bmi_calculator/CalculatorBrain.dart';
 
 enum Gender {
   male,
@@ -134,21 +138,23 @@ class _InputPageState extends State<InputPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          RoundIconButton(onPressed: (){
-                            setState(() {
-                              weight--;
-                            });
-                          },
+                          RoundIconButton(
+                            onPressed: () {
+                              setState(() {
+                                weight--;
+                              });
+                            },
                             icon: FontAwesomeIcons.minus,
                           ),
                           SizedBox(
                             width: 10.0,
                           ),
-                          RoundIconButton(onPressed: (){
-                            setState(() {
-                              weight++;
-                            });
-                          },
+                          RoundIconButton(
+                            onPressed: () {
+                              setState(() {
+                                weight++;
+                              });
+                            },
                             icon: FontAwesomeIcons.plus,
                           )
                         ],
@@ -173,17 +179,23 @@ class _InputPageState extends State<InputPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          RoundIconButton(onPressed:(){setState(() {
-                            age--;
-                          });},
+                          RoundIconButton(
+                            onPressed: () {
+                              setState(() {
+                                age--;
+                              });
+                            },
                             icon: FontAwesomeIcons.minus,
                           ),
                           SizedBox(
                             width: 10.0,
                           ),
-                          RoundIconButton(onPressed: (){setState(() {
-                            age++;
-                          });},
+                          RoundIconButton(
+                            onPressed: () {
+                              setState(() {
+                                age++;
+                              });
+                            },
                             icon: FontAwesomeIcons.plus,
                           )
                         ],
@@ -195,11 +207,17 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(top: 10),
-            height: kbottomAppbarheight,
-            width: double.infinity,
-            color: kbottombarcolor,
+          BottomButton(
+            Title: 'CALCULATE',
+            ontap: () {
+              CalculatorBrain calc = CalculatorBrain(height: height,weight: weight);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ResultPage(
+                    bmiresult: calc.CalculatedBMI(),
+                    ResultText: calc.getResult(),
+                    Intepretation: calc.interpretation(),
+                  )));
+            },
           ),
         ],
       ),
@@ -207,19 +225,4 @@ class _InputPageState extends State<InputPage> {
   }
 }
 
-class RoundIconButton extends StatelessWidget {
-  RoundIconButton({required this.icon,required this.onPressed});
-  final IconData? icon;
-  final void Function()? onPressed;
-  @override
-  Widget build(BuildContext context) {
-    return RawMaterialButton(
-      child: Icon(icon),
-      onPressed: onPressed,
-      shape: CircleBorder(),
-      fillColor: Color(0xFF4C4F5E),
-      elevation: 0.0,
-      constraints: BoxConstraints.tightFor(width: 56.0, height: 56),
-    );
-  }
-}
+
